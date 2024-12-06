@@ -1,4 +1,17 @@
 <?php
+session_start();
+
+// Vérifiez si les variables de session existent
+if (isset($_SESSION['prenomAdmin'], $_SESSION['nomAdmin'])) {
+    $prenomAdmin = $_SESSION['prenomAdmin'];
+    $nomAdmin = $_SESSION['nomAdmin'];
+} else {
+    // Si elles ne sont pas définies, redirigez ou affichez un message d'erreur
+    echo "Erreur : Vous n'êtes pas connecté.";
+    exit; // Empêche le reste de la page de se charger
+}
+?>
+<?php
 $host = 'localhost';
 $dbname = 'bdd_akademia1.0'; 
 $username = 'root'; 
@@ -127,9 +140,8 @@ foreach ($formationsEtCours as $row) {
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav side-nav">
-            <li><a href="index.php"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="accueil.php"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li><a href="gererCours.php"><i class="fa fa-edit"></i> Gestion des cours</a></li>
-            <li><a href="tables.html"><i class="fa fa-table"></i> Gestion des évaluations</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> Listes<b class="caret"></b></a>
               <ul class="dropdown-menu">
@@ -145,11 +157,14 @@ foreach ($formationsEtCours as $row) {
             
             
             <li class="dropdown user-dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-user"></i> <?php echo htmlspecialchars($prenomAdmin . ' ' . $nomAdmin); ?> <b class="caret"></b>
+            </a>
+
               <ul class="dropdown-menu">
-                <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
+                <li><a href="profil.php"><i class="fa fa-user"></i> Profile</a></li>
                 <li class="divider"></li>
-                <li><a href="#"><i class="fa fa-power-off"></i> Log Out</a></li>
+                <li><a href="deconnexion.php"><i class="fa fa-power-off"></i> Log Out</a></li>
               </ul>
             </li>
           </ul>
@@ -160,7 +175,7 @@ foreach ($formationsEtCours as $row) {
 
         <div class="row">
           <div class="col-lg-12">
-            <h1>Dashboard <small>Statistics Overview</small></h1>
+            <h1>Tableau de bord <small></small></h1>
             <ol class="breadcrumb">
               <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
             </ol>
@@ -225,7 +240,7 @@ foreach ($formationsEtCours as $row) {
             <div class="panel-heading">
                   <div class="row">
                     <div class="col-xs-6">
-                      <i class="fa fa-comments fa-5x"></i> <!-- Icône de commentaires -->
+                    <i class="fa fa-users fa-5x"></i> <!-- Icône de commentaires -->
                     </div>
                     <div class="col-xs-6 text-right">
                       <p class="announcement-heading"><?php echo $nombreRoles; ?></p> <!-- Nombre de rôles -->
@@ -246,7 +261,7 @@ foreach ($formationsEtCours as $row) {
         <div class="col-lg-4">
           <div class="panel panel-primary">
               <div class="panel-heading">
-                  <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i> Liste des étudiants inscrits</h3>
+                  <h3 class="panel-title"></i> Liste des étudiants inscrits</h3>
               </div>
               <div class="panel-body">
                   <ul>
@@ -268,7 +283,7 @@ foreach ($formationsEtCours as $row) {
           <div class="col-lg-4">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-clock-o"></i> Liste des formations</h3>
+                    <h3 class="panel-title"></i> Liste des formations</h3>
                 </div>
                 <div class="panel-body">
                     <ul>
@@ -288,7 +303,7 @@ foreach ($formationsEtCours as $row) {
           <div class="col-lg-4">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-money"></i> Liste des cours selon la formation</h3>
+                    <h3 class="panel-title"></i> Liste des cours selon la formation</h3>
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
